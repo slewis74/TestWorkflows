@@ -19,7 +19,7 @@ jobs:
           }
           $json = ConvertTo-Json $testOutput -Compress
           Write-Output "$json"
-          Write-Output "testJson=$json" >> $GITHUB_OUTPUT
+          Write-Output "testJson=$json" >> $env:GITHUB_OUTPUT
       - name: Check test Json output
         shell: pwsh
         run: |
@@ -31,7 +31,7 @@ jobs:
           inlineScript: |
             $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
             Write-Output $params
-            Write-Output "TestName=$params.TestName" >> $GITHUB_OUTPUT
+            Write-Output "TestName=$params.TestName" >> $env:GITHUB_OUTPUT
           azPSVersion: 'latest'
       - name: Check PS output
         shell: pwsh
