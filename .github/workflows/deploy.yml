@@ -31,7 +31,7 @@ jobs:
           inlineScript: |
             $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
             Write-Output $params
-            Write-Output "TestName=$params.TestName" >> $env:GITHUB_OUTPUT
+            Write-Output "TestName=$($params.TestName)" >> $env:GITHUB_OUTPUT
           azPSVersion: 'latest'
       - name: Check PS output
         shell: pwsh
