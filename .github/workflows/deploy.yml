@@ -31,7 +31,7 @@ jobs:
           inlineScript: |
             $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
             Write-Output $params
-            ${{ github.workspace }}/.github/workflows/test.ps1 $params
+            & "${{ github.workspace }}/.github/workflows/test.ps1" $params
           azPSVersion: 'latest'
       - name: Check PS output
         shell: pwsh
