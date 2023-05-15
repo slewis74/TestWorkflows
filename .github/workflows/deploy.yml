@@ -32,7 +32,6 @@ jobs:
             ./test.ps1 @params
       - name: Check PS output
         shell: pwsh
-        id: json-set
         run: |
           echo "${{steps.json-set-ps.outputs.TestName}}"
             
