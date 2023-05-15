@@ -18,11 +18,11 @@ jobs:
             "SomeBool" = $false;
           }
           $json = ConvertTo-Json $testOutput -Compress
-          echo "testJson=$json" >> $GITHUB_OUTPUT
+          Write-Output "testJson=$($json)" >> $GITHUB_OUTPUT
       - name: Check test Json output
         shell: pwsh
         run: |
-          echo "${{steps.json-set.outputs.testJson}}"
+          Write-Output "${{steps.json-set.outputs.testJson}}"
       - name: Run PS test
         uses: azure/powershell@v1
         id: json-set-ps
@@ -30,8 +30,9 @@ jobs:
           inlineScript: |
             $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
             ./test.ps1 @params
+          azPSVersion: 'latest'
       - name: Check PS output
         shell: pwsh
         run: |
-          echo "${{steps.json-set-ps.outputs.TestName}}"
+          Write-Output "${{steps.json-set-ps.outputs.TestName}}"
             
