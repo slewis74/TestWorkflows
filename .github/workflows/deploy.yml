@@ -14,11 +14,12 @@ jobs:
         id: json-set
         run: |
           $testOutput   = @{
-            "TestName" = 'Foo';
+            "TestName" = "Foo";
             "SomeBool" = $false;
           }
           $json = ConvertTo-Json $testOutput -Compress
-          Write-Output "testJson=$($json)" >> $GITHUB_OUTPUT
+          Write-Output "$json"
+          Write-Output "testJson=$json" >> $GITHUB_OUTPUT
       - name: Check test Json output
         shell: pwsh
         run: |
@@ -29,7 +30,8 @@ jobs:
         with:
           inlineScript: |
             $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
-            ./test.ps1 @params
+            Write-Output $params
+            Write-Output "TestName=$params.TestName" >> $GITHUB_OUTPUT
           azPSVersion: 'latest'
       - name: Check PS output
         shell: pwsh
