@@ -9,8 +9,13 @@ jobs:
     name: Verify PS outputs
     runs-on: ubuntu-latest
     steps:
-      - name: Setting test Json output
+      - name: Check that this errors
         shell: bash
-        id: json-set
+        run: |
+          echo "::group::Grouped output"
+          exit 1
+          echo "::endgroup::"
+      - name: Check that this also errors
+        shell: bash
         run: |
           exit 1
