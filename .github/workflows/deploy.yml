@@ -5,18 +5,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Verify PS outputs
+  run-integration-tests:
     runs-on: ubuntu-latest
+    name: Run tests
     steps:
-      - name: Check that this errors
-        shell: bash
-        run: |
-          echo "::group::Grouped output"
-          ls
-          exit 1
-          echo "::endgroup::"
-      - name: Check that this also errors
-        shell: bash
-        run: |
-          exit 1
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Run tests
+        uses: ./.github/actions/integration-tests
+        with:
+          working-directory: .

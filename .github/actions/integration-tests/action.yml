@@ -1,0 +1,23 @@
+name: 'Integration tests'
+description: 'Integration tests'
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: true
+  integration-test-client-secret:
+    description: 'Integration test'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Check that this errors
+      shell: bash
+      run: |
+        echo "::group::Grouped output"
+        ls
+        exit 1
+        echo "::endgroup::"
+    - name: Check that this also errors
+      shell: bash
+      run: |
+        exit 1
