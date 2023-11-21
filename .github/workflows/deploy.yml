@@ -13,7 +13,6 @@ jobs:
         shell: bash
         run: |
           echo "::group::Grouped output"
-          ls
           exit 1
           echo "::endgroup::"
       - name: Check that this also errors
