@@ -13,6 +13,7 @@ jobs:
         shell: bash
         run: |
           echo "::group::Grouped output"
+          npm run test
           exit 1
           echo "::endgroup::"
       - name: Check that this also errors
