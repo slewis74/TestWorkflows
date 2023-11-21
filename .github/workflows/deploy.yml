@@ -10,31 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setting test Json output
-        shell: pwsh
+        shell: bash
         id: json-set
         run: |
-          $testOutput   = @{
-            "TestName" = "Foo";
-            "SomeBool" = $false;
-          }
-          $json = ConvertTo-Json $testOutput -Compress
-          Write-Output "$json"
-          Write-Output "testJson=$json" >> $env:GITHUB_OUTPUT
-      - name: Check test Json output
-        shell: pwsh
-        run: |
-          Write-Output "${{steps.json-set.outputs.testJson}}"
-      - name: Run PS test
-        uses: azure/powershell@v1
-        id: json-set-ps
-        with:
-          inlineScript: |
-            $params = ConvertFrom-Json -AsHashtable '${{steps.json-set.outputs.testJson}}'
-            Write-Output $params
-            & "${{ github.workspace }}/.github/workflows/test.ps1" $params
-          azPSVersion: 'latest'
-      - name: Check PS output
-        shell: pwsh
-        run: |
-          Write-Output "${{steps.json-set-ps.outputs.TestName}}"
-            
+          exit 1
