@@ -21,3 +21,11 @@ runs:
       shell: bash
       run: |
         exit 1
+    - name: Logs on Failure
+      if: failure()
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        echo "::group::Do logs on failure"
+        echo "We would log something here"
+        echo "::endgroup::"
